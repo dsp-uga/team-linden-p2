@@ -46,18 +46,22 @@ def get_predictions(output_batch):
 def error(preds, targets):
     assert preds.size() == targets.size()
     bs,h,w = preds.size()
-    n_pixels = bs*h*w
+    n_pixels = bs * h * w
     incorrect = preds.ne(targets).cpu().sum()
-    err = incorrect/n_pixels
-    return round(err,5)
+    err = float(incorrect) / n_pixels
+    return round(err, 5)
 
 def train(model, trn_loader, optimizer, criterion, epoch):
+    use_cuda = True
     model.train()
     trn_loss = 0
     trn_error = 0
-    for idx, data in enumerate(trn_loader):
-        inputs = Variable(data[0].cuda())
-        targets = Variable(data[1].cuda())
+    device = torch.device("cuda" if use_cuda else "cpu")
+
+    for input, target in trn_loader:
+        inputs, targets = input.to(device), target.to(device)
+        # inputs = Variable(data[0].cuda())
+        # targets = Variable(data[1].cuda())
 
         optimizer.zero_grad()
         output = model(inputs)
@@ -65,7 +69,7 @@ def train(model, trn_loader, optimizer, criterion, epoch):
         loss.backward()
         optimizer.step()
 
-        trn_loss += loss.data[0]
+        trn_loss += loss.item()
         pred = get_predictions(output)
         trn_error += error(pred, targets.data.cpu())
 
@@ -74,14 +78,18 @@ def train(model, trn_loader, optimizer, criterion, epoch):
     return trn_loss, trn_error
 
 def test(model, test_loader, criterion, epoch=1):
+    use_cuda = True
     model.eval()
     test_loss = 0
     test_error = 0
+    device = torch.device("cuda" if use_cuda else "cpu")
+
     for data, target in test_loader:
-        data = Variable(data.cuda(), volatile=True)
-        target = Variable(target.cuda())
+        data, target = data.to(device), target.to(device)
+        # data = Variable(data.cuda(), volatile=True)
+        # target = Variable(target.cuda())
         output = model(data)
-        test_loss += criterion(output, target).data[0]
+        test_loss += criterion(output, target).item()
         pred = get_predictions(output)
         test_error += error(pred, target.data.cpu())
     test_loss /= len(test_loader)
@@ -97,7 +105,7 @@ def adjust_learning_rate(lr, decay, optimizer, cur_epoch, n_epochs):
 
 def weights_init(m):
     if isinstance(m, nn.Conv2d):
-        nn.init.kaiming_uniform(m.weight)
+        nn.init.kaiming_uniform_(m.weight)
         m.bias.data.zero_()
 
 def predict(model, input_loader, n_batches=1):
