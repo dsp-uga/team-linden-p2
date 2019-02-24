@@ -39,3 +39,5 @@ Thumbs.db
 */__pycache__
 .ipynb_checkpoints/
 .weights/
+.results/
+results/

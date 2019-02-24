@@ -48,6 +48,8 @@ def load_input(base, split):
         for i in range(len(masks_imgs)):
             masks_imgs[i] = masks_imgs[i].reshape(masks_imgs[i][0].shape + (1, ))
             masks_imgs[i] = masks_imgs[i].astype(np.int32)
+            # masks_imgs[i][masks_imgs[i] == 1] = 0
+            # masks_imgs[i][masks_imgs[i] == 2] = 1
 
     # reshape the input
     for i in range(len(input_imgs)):
