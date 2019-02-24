@@ -17,8 +17,8 @@ def main():
         for i in range(row):
             for j in range(col):
                 isCilia = False
-                for x in range(i - 2, i + 3):
-                    for y in range(j - 2, j + 3):
+                for x in range(i - 1, i + 2):
+                    for y in range(j - 1, j + 2):
                         if 0 <= x < row and 0 <= y < col and image[x][y] == 2:
                             output[i][j] = 2
                             isCilia = True
