@@ -29,13 +29,36 @@ def load_input(base, split):
     input_imgs = []
     masks_imgs = []
     all_hash = sorted(os.listdir(base + split + '/data/'))
-    
-    for imgHash in all_hash:
-        inputs = glob(base + split + '/data/' + imgHash + '/frame0000.png')
-        input_imgs.append(array([imread(f, pilmode='I') for f in inputs]).mean(axis=0))
-        if split != 'test':
-            masks = glob(base + split + '/masks/' + imgHash + '.png')
-            masks_imgs.append(array([imread(f, pilmode='I') for f in masks]))
+    if split != 'test':
+        for imgHash in all_hash:
+            inputs1 = glob(base + split + '/data/' + imgHash + '/frame0000.png')#input changed to input1
+            inputs2 = glob(base + split + '/data/' + imgHash + '/frame0020.png')#added to increase the number of training set
+            inputs3 = glob(base + split + '/data/' + imgHash + '/frame0050.png')#added
+            inputs4 = glob(base + split + '/data/' + imgHash + '/frame0070.png')#added
+            inputs5 = glob(base + split + '/data/' + imgHash + '/frame0090.png')#added
+            input_imgs.append(array([imread(f, pilmode='I') for f in inputs1]).mean(axis=0))#input changed to input1
+            input_imgs.append(array([imread(f, pilmode='I') for f in inputs2]).mean(axis=0))#added
+            input_imgs.append(array([imread(f, pilmode='I') for f in inputs3]).mean(axis=0))#added
+            input_imgs.append(array([imread(f, pilmode='I') for f in inputs4]).mean(axis=0))#added
+            input_imgs.append(array([imread(f, pilmode='I') for f in inputs5]).mean(axis=0))#added
+
+            masks1 = glob(base + split + '/masks/' + imgHash + '.png')
+            masks2 = glob(base + split + '/masks/' + imgHash + '.png')
+            masks3 = glob(base + split + '/masks/' + imgHash + '.png')
+            masks4 = glob(base + split + '/masks/' + imgHash + '.png')
+            masks5 = glob(base + split + '/masks/' + imgHash + '.png')
+            masks_imgs.append(array([imread(f, pilmode='I') for f in masks1]))
+            masks_imgs.append(array([imread(f, pilmode='I') for f in masks2]))
+            masks_imgs.append(array([imread(f, pilmode='I') for f in masks3]))
+            masks_imgs.append(array([imread(f, pilmode='I') for f in masks4]))
+            masks_imgs.append(array([imread(f, pilmode='I') for f in masks5]))
+
+    else:    
+        for imgHash in all_hash:
+                inputs = glob(base + split + '/data/' + imgHash + '/frame0000.png')#input changed to input1
+                input_imgs.append(array([imread(f, pilmode='I') for f in inputs]).mean(axis=0))#input changed to input1
+                masks1 = glob(base + split + '/masks/' + imgHash + '.png')
+                masks_imgs.append(array([imread(f, pilmode='I') for f in masks1]))
 
 
     # check whether if they are good
