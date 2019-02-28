@@ -5,14 +5,14 @@ from glob import glob
 from PIL import Image
 
 
-ISTRAIN = False
+ISTRAIN = True
 THRESHOLD = 50
 
-DATADIRSPATH = '/Users/jerryhui/Desktop/Files/UGA/CS/8360DataPracticum/Projects/p2/project2/data/data/*'
-MASKDIRPATH = '/Users/jerryhui/Desktop/Files/UGA/CS/8360DataPracticum/Projects/p2/project2/masks'
-HASHCODEFILEPATH = '/Users/jerryhui/Desktop/Files/UGA/CS/8360DataPracticum/Projects/p2/project2/train.txt'
-TESTHASHCODEFILEPATH = '/Users/jerryhui/Desktop/Files/UGA/CS/8360DataPracticum/Projects/p2/project2/test.txt'
-OUTPUTDIR = 'output'
+DATADIRSPATH = '/Users/user/Documents/edu/courses/csci8360/project2/dat/data/*' #'/Users/jerryhui/Desktop/Files/UGA/CS/8360DataPracticum/Projects/p2/project2/data/data/*'
+MASKDIRPATH = '/Users/user/Documents/edu/courses/csci8360/project2/dat/masks' #'/Users/jerryhui/Desktop/Files/UGA/CS/8360DataPracticum/Projects/p2/project2/masks'
+HASHCODEFILEPATH = '/Users/user/Documents/edu/courses/csci8360/project2/dat/train.txt' #'/Users/jerryhui/Desktop/Files/UGA/CS/8360DataPracticum/Projects/p2/project2/train.txt'
+TESTHASHCODEFILEPATH = '/Users/user/Documents/edu/courses/csci8360/project2/dat/test.txt' #'/Users/jerryhui/Desktop/Files/UGA/CS/8360DataPracticum/Projects/p2/project2/test.txt'
+OUTPUTDIR = '/Users/user/Documents/edu/courses/csci8360/project2/dat/output'
 
 
 

@@ -55,11 +55,11 @@ def processing_frame_from_video(input_path, output_path):
             
             image = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
             print(image.shape)
-            clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))#auto illumination correction
+            clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8)) # auto illumination correction
             image = clahe.apply(image)        
 
             image = cv2.bilateralFilter(image,7,30,30) #smoothing the image
-            cv2.imwrite(image_path+'/frame'+str(count).zfill(4)+'.png', image)     # save frame as JPEG file      
+            #cv2.imwrite(image_path+'/frame'+str(count).zfill(4)+'.png', image) # save frame as JPEG file      
             success,image = vidcap.read()
             print('Read a new frame: ', success)
             count += 1
