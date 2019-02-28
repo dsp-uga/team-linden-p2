@@ -1,3 +1,7 @@
+"""
+Code is referenced to https://docs.opencv.org/3.4/d7/d8b/tutorial_py_lucas_kanade.html
+"""
+
 import cv2
 import os
 import numpy as np
