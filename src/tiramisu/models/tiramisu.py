@@ -1,4 +1,7 @@
-## From https://github.com/bfortuner/pytorch_tiramisu/blob/master/models/tiramisu.py
+"""
+This code is taken from 
+https://github.com/bfortuner/pytorch_tiramisu/blob/master/models/tiramisu.py
+"""
 
 import torch
 import torch.nn as nn

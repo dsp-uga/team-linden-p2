@@ -1,4 +1,9 @@
-## From https://github.com/bfortuner/pytorch_tiramisu/blob/master/models/layers.py
+"""
+This code is taken from 
+https://github.com/bfortuner/pytorch_tiramisu/blob/master/models/layers.py
+
+We modified the dropout rate from 0.2 to 0.1
+"""
 
 import torch
 import torch.nn as nn
