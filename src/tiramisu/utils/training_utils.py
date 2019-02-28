@@ -58,8 +58,8 @@ def train(model, trn_loader, optimizer, criterion, epoch):
     trn_error = 0
     device = torch.device("cuda" if use_cuda else "cpu")
 
-    for input, target in trn_loader:
-        inputs, targets = input.to(device), target.to(device)
+    for trn_data in trn_loader:
+        inputs, targets = trn_data[0].to(device), trn_data[1].to(device)
         # inputs = Variable(data[0].cuda())
         # targets = Variable(data[1].cuda())
 
@@ -86,8 +86,6 @@ def test(model, test_loader, criterion, epoch=1):
 
     for data, target in test_loader:
         data, target = data.to(device), target.to(device)
-        # data = Variable(data.cuda(), volatile=True)
-        # target = Variable(target.cuda())
         output = model(data)
         test_loss += criterion(output, target).item()
         pred = get_predictions(output)
@@ -120,15 +118,11 @@ def predict(model, input_loader, n_batches=1):
         predictions.append([input,target,pred])
     return predictions
 
-def get_test_results(model, pic):
-    data = Variable(pic.cuda(), volatile = True)
-    output = model(data)
-    pred = get_predictions(output)
-    return pred
-
-
-def get_test_results_cpu(model, pic):
-    data = Variable(pic, volatile = True)
+def get_test_results(model, pic, useGPU=True):
+    if useGPU:
+        data = Variable(pic.cuda(), volatile = True)
+    else:
+        data = Variable(pic, volatile = True)
     output = model(data)
     pred = get_predictions(output)
     return pred
