@@ -3,7 +3,6 @@ import os
 import glob
 from vidstab import VidStab
 
-
 #convert the image frames to videos
 
 #video_name = '/home/afarahani/Projects/video.mp4'
@@ -58,23 +57,24 @@ def processing_frame_from_video(input_path, output_path):
             clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))#auto illumination correction
             image = clahe.apply(image)        
 
-            image = cv2.bilateralFilter(image,7,30,30) #smoothing the image
+            #image = cv2.bilateralFilter(image,7,30,30) #smoothing the image
             cv2.imwrite(image_path+'/frame'+str(count).zfill(4)+'.png', image)     # save frame as JPEG file      
             success,image = vidcap.read()
             print('Read a new frame: ', success)
             count += 1
 
 def main():
-    image_path = glob.glob('/home/afarahani/Projects/project2/dataset/data/data/train_org/data/*')
-    out_video_path = '/home/afarahani/Projects/output/'
+    image_path = glob.glob('/home/afarahani/Projects/project2/dataset/data/data/testToy/data/*')
+    out_video_path = '/home/afarahani/Projects/output_testtoy/'
     image_to_video(image_path,out_video_path)
 
-    input_video_filepath = glob.glob('/home/afarahani/Projects/output/*')
+    input_video_filepath = glob.glob('/home/afarahani/Projects/output_val/*')
     output_video_filepath = '/home/afarahani/Projects/stab_output/'
-    video_stabilizer(input_video_filepath, output_video_filepath)
+    #video_stabilizer(input_video_filepath, output_video_filepath)
 
-    input_path = glob.glob('/home/afarahani/Projects/stab_output/*')
-    output_path = '/home/afarahani/Projects/stab_images'
+    #input_path = glob.glob('/home/afarahani/Projects/stab_output/*')
+    input_path = glob.glob('/home/afarahani/Projects/output_testtoy/*')
+    output_path = '/home/afarahani/Projects/stab_images_testtoy'
     processing_frame_from_video(input_path, output_path)
 
 
