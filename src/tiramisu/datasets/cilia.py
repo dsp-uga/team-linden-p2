@@ -94,7 +94,7 @@ class Cilia(data.Dataset):
         """
         assert self.split == 'test'
         x_imgs = []
-        hashcodes = os.listdir(self.root + self.split + '/data/')
+        hashcodes = sorted(os.listdir(self.root + self.split + '/data/'))
 
         for hashcode in hashcodes:
             x_tmp = glob(self.root + self.split + '/data/' + hashcode + '/frame0000.png')
