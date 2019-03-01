@@ -118,11 +118,11 @@ def predict(model, input_loader, n_batches=1):
         predictions.append([input,target,pred])
     return predictions
 
-def get_test_results(model, pic, useGPU=True):
+def get_test_pred(model, img, useGPU=True):
     if useGPU:
-        data = Variable(pic.cuda(), volatile = True)
+        data = Variable(img.cuda(), volatile = True)
     else:
-        data = Variable(pic, volatile = True)
+        data = Variable(img, volatile = True)
     output = model(data)
     pred = get_predictions(output)
     return pred
