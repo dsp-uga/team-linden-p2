@@ -1,3 +1,8 @@
+"""
+This code is taken from 
+https://github.com/bfortuner/pytorch_tiramisu/blob/master/models/tiramisu.py
+"""
+
 from __future__ import division
 import torch
 import math
