@@ -66,8 +66,8 @@ class Cilia(data.Dataset):
 
         # pick 5 frames from a video
         for hashcode in hashcodes:
-            for num in ['00', '20', '50', '70', '90']:
-                x_tmp = glob(self.root + self.split + '/data/' + hashcode + '/frame00' + num + '.png')
+            for num in range(5, 100, 10):
+                x_tmp = glob(self.root + self.split + '/data/' + hashcode + '/frame00' + str(num).zfill(2) + '.png')
                 x = np.array([imread(f, pilmode='I') for f in x_tmp])
                 x_imgs.append(x.mean(axis=0))
                 mask_tmp = glob(self.root + self.split + '/masks/' + hashcode + '.png')
