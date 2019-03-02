@@ -40,3 +40,4 @@ Thumbs.db
 project2test.ipynb
 ToyOpticalFlow.ipynb
 .ipynb_checkpoints
+*accuracy.txt
