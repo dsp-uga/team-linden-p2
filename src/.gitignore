@@ -36,6 +36,8 @@
 ehthumbs.db
 Thumbs.db
 
+
+__pycache__
 */__pycache__
 project2test.ipynb
 ToyOpticalFlow.ipynb

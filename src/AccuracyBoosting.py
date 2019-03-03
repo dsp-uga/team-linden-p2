@@ -4,8 +4,8 @@ import numpy as np
 from glob import glob
 from PIL import Image
 
-RAWTESTPATH = '/Users/jerryhui/Downloads/p2/*'
-OUTPUTDIR = '/Users/jerryhui/Downloads/p2BoostTiramisu/'
+RAWTESTPATH = '/Users/jerryhui/Downloads/p2_6/*'
+OUTPUTDIR = '/Users/jerryhui/Downloads/p2_10/'
 
 def main():
     fileList = glob(RAWTESTPATH)

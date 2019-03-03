@@ -3,16 +3,7 @@ import os
 import numpy as np
 from glob import glob
 from PIL import Image
-
-
-ISTRAIN = True
-THRESHOLD = 6.987200
-
-DATADIRSPATH = '/Users/jerryhui/Desktop/Files/UGA/CS/8360DataPracticum/Projects/p2/project2/data/data/*'
-MASKDIRPATH = '/Users/jerryhui/Desktop/Files/UGA/CS/8360DataPracticum/Projects/p2/project2/masks'
-HASHCODEFILEPATH = '/Users/jerryhui/Desktop/Files/UGA/CS/8360DataPracticum/Projects/p2/project2/train.txt'
-TESTHASHCODEFILEPATH = '/Users/jerryhui/Desktop/Files/UGA/CS/8360DataPracticum/Projects/p2/project2/test.txt'
-OUTPUTDIR = 'output'
+import argparse
 
 
 def getIOU(trainData, threshold):
@@ -68,16 +59,17 @@ def getHashCodeSet(hashcodeFilePath):
     return hashcodeSet
 
 
-def getTrainData():
+def getTrainData(args):
     """
     generate the traing data
 
+    @param: args, parsed arguments
     return: list of list, dimension: (N, 2), where the 1st column is scaled 
                      variance (0-256), the 2nd column is the label (0, 1, 2)
     """
     trainData = []
-    hashcodeSet = getHashCodeSet(HASHCODEFILEPATH)
-    dataDirs = glob(DATADIRSPATH)
+    hashcodeSet = getHashCodeSet(args.hashcodeFilePath)
+    dataDirs = glob(args.dataDirPath + '*')
 
     cnt = 1
     for direc in dataDirs:
@@ -87,7 +79,7 @@ def getTrainData():
         print(cnt, hashcode)
         cnt += 1
 
-        maskPath = os.path.join(MASKDIRPATH, hashcode + '.png')
+        maskPath = os.path.join(args.maskDirPath, hashcode + '.png')
         frame0 = cv2.imread(os.path.join(direc, 'frame0000.png'), 0)
         row, col = frame0.shape
         
@@ -110,18 +102,19 @@ def getTrainData():
     return trainData
 
 
-def generateTestResult(threshold):
+def generateTestResult(threshold, args):
     """
     gerenerate the testing results
     
-    threshold: type, float, the threshold of the scaled variance
+    @param: threshold: type, float, the threshold of the scaled variance
+    @param: args, parsed arguments
     return: void
     """
-    if not os.path.exists(OUTPUTDIR):
-        os.makedirs(OUTPUTDIR)
+    if not os.path.exists(args.output):
+        os.makedirs(args.output)
 
-    hashcodeSet = getHashCodeSet(TESTHASHCODEFILEPATH)
-    dataDirs = glob(DATADIRSPATH)
+    hashcodeSet = getHashCodeSet(args.testHashcodeFilePath)
+    dataDirs = glob(args.dataDirPath + '*')
 
     for direc in dataDirs:
         hashcode = direc.split('/')[-1]
@@ -146,23 +139,31 @@ def generateTestResult(threshold):
                     output[i][j] = 2
 
         outputImage = Image.fromarray(output)
-        outputImage.save(os.path.join(OUTPUTDIR, hashcode + '.png'), 0)
+        outputImage.save(os.path.join(args.output, hashcode + '.png'), 0)
 
 
-def main():
-    if ISTRAIN:
-        trainData = getTrainData()
+def main(args):
+    if args.train:
+        trainData = getTrainData(args)
         IOU, threshold = calculateThreshold(trainData)
         print('Threshold is %f' % threshold)
         print(IOU)
     else:
-        threshold = THRESHOLD
+        threshold = int(args.threshold)
 
-    generateTestResult(threshold)
-
+    generateTestResult(threshold, args)
 
 
 if __name__ == '__main__':
-    main()
-
-
+    parser = argparse.ArgumentParser(description='Pixel Variance for Cilia Segmentation')
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument('-tr', '--train', action='store_true', help='Whether or not to train')
+    group.add_argument('-th', '--threshold', default=6.987200, help='Threshold for the optival flow')
+    parser.add_argument('-d', '--dataDirPath', default='/Users/jerryhui/Desktop/Files/UGA/CS/8360DataPracticum/Projects/p2/project2/data/data/', help='Path for the traing hashcode file, e.g. train.txt')
+    parser.add_argument('-m', '--maskDirPath', default='/Users/jerryhui/Desktop/Files/UGA/CS/8360DataPracticum/Projects/p2/project2/masks', help='Path for the masks directory')
+    parser.add_argument('-ha', '--hashcodeFilePath', default='/Users/jerryhui/Desktop/Files/UGA/CS/8360DataPracticum/Projects/p2/project2/train.txt', help='Path for the traing hashcode file, e.g. train.txt')
+    parser.add_argument('-t', '--testHashcodeFilePath', default='/Users/jerryhui/Desktop/Files/UGA/CS/8360DataPracticum/Projects/p2/project2/test.txt', help='Path for the test hashcode file, e.g. test.txt')
+    parser.add_argument('-o', '--output', default="output", help='Path for the output directory')
+    
+    args = parser.parse_args()
+    main(args)
