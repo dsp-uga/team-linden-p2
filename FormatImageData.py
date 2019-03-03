@@ -102,6 +102,10 @@ def main(args):
             raise Exception("The source directory you specified does not " + \
                             "conform with expectations.")
 
+    # make sure expected output directories exist
+    if not os.path.exists(output_path):
+        os.mkdir(output_path)
+
     # make a temp directory for videos
     if not os.path.exists(image_path + "/.video"):
         os.mkdir(image_path + "/.video")
@@ -119,6 +123,7 @@ def main(args):
     else:
         processing_frame_from_video(image_path + "/.video", output_path, args)
 
+    # Remove temp directories
     shutil.rmtree(image_path + "/.video")
     shutil.rmtree(image_path + "/.video_stab")
     
@@ -127,7 +132,7 @@ def main(args):
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(
-            description='Define and format data for later analysis. This ' + \
+            description='This ' + \
             'is part of the UGA CSCI 8360 Project 2 - . Please visit our ' + \
             'GitHub project at https://github.com/dsp-uga/team-linden-p2 ' + \
             'for more information regarding data organization ' + \
