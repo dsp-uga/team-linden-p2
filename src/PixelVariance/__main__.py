@@ -159,7 +159,7 @@ if __name__ == '__main__':
     group = parser.add_mutually_exclusive_group()
     group.add_argument('-tr', '--train', action='store_true', help='Whether or not to train')
     group.add_argument('-th', '--threshold', default=6.987200, help='Threshold for the optival flow')
-    parser.add_argument('-d', '--dataDirPath', default='/Users/jerryhui/Desktop/Files/UGA/CS/8360DataPracticum/Projects/p2/project2/data/data/', help='Path for the traing hashcode file, e.g. train.txt')
+    parser.add_argument('-d', '--dataDirPath', default='/Users/jerryhui/Desktop/Files/UGA/CS/8360DataPracticum/Projects/p2/project2/data/data/', help='Path for the images data directory')
     parser.add_argument('-m', '--maskDirPath', default='/Users/jerryhui/Desktop/Files/UGA/CS/8360DataPracticum/Projects/p2/project2/masks', help='Path for the masks directory')
     parser.add_argument('-ha', '--hashcodeFilePath', default='/Users/jerryhui/Desktop/Files/UGA/CS/8360DataPracticum/Projects/p2/project2/train.txt', help='Path for the traing hashcode file, e.g. train.txt')
     parser.add_argument('-t', '--testHashcodeFilePath', default='/Users/jerryhui/Desktop/Files/UGA/CS/8360DataPracticum/Projects/p2/project2/test.txt', help='Path for the test hashcode file, e.g. test.txt')
