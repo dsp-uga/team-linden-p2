@@ -31,18 +31,6 @@ def main(args):
     if not os.path.exists(args.rootDir+"/test/masks"):
         raise Exception("ERROR: The dir '"+args.rootDir+"/test/masks' " + \
                         "doesn't exist")
-    if not os.path.exists(args.rootDir+"/validate/data"):
-        raise Exception("ERROR: The dir '"+args.rootDir+"/validate/data' " + \
-                        "doesn't exist")
-    if not os.path.exists(args.rootDir+"/validate/masks"):
-        raise Exception("ERROR: The dir '"+args.rootDir+"/validate/masks' " + \
-                        "doesn't exist")
-    if not os.path.exists(args.rootDir+"/train/data"):
-        raise Exception("ERROR: The dir '"+args.rootDir+"/train/data' " + \
-                        "doesn't exist")
-    if not os.path.exists(args.rootDir+"/train/masks"):
-        raise Exception("ERROR: The dir '"+args.rootDir+"/train/masks' " + \
-                        "doesn't  exist")
     if not os.path.exists(args.rootDir+"/results"):
         os.mkdir(args.rootDir+"/results") 
     if not os.path.exists(args.rootDir+"/weights"):
