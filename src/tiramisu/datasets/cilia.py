@@ -9,11 +9,9 @@ https://github.com/whusym/Cilia-segmentation-pytorch-tiramisu
 from glob import glob
 import os
 import numpy as np
-import torchvision
 from torchvision import transforms
 from torch.utils import data
 from imageio import imread
-from PIL import Image
 
 
 class Cilia(data.Dataset):
@@ -41,7 +39,9 @@ class Cilia(data.Dataset):
             mask = self.masks[index]
             if self.joint_transform:
 
-                img, mask = self.joint_transform([transforms.ToPILImage()(img), transforms.ToPILImage()(mask)])
+                img, mask = self.joint_transform(
+                        [transforms.ToPILImage()(img), 
+                         transforms.ToPILImage()(mask)])
             
             mask = self.to_tensor_transform(mask).long()
                 
@@ -54,23 +54,27 @@ class Cilia(data.Dataset):
 
     def get_train_input(self):
         """
-        generate the train/validate input for our model, self.split == 'train' or 'validate'
-        return type: tuple (x_imgs, mask_imgs), path for X train images and masks
+        generate the train/validate input for our model, 
+        self.split == 'train' or 'validate'
+        return type: tuple (x_imgs, mask_imgs), 
+        path for X train images and masks
         """
         assert self.split in ('train', 'validate')
         x_imgs, masks_imgs = [], []
-        hashcodes = os.listdir(self.root + self.split + '/data/')
+        hashcodes = os.listdir(self.root + '/'  + self.split + '/data/')
 
         # pick 5 frames from a video
         for hashcode in hashcodes:
             for num in range(5, 100, 10):
-                x_tmp = glob(self.root + self.split + '/data/' + hashcode + '/frame00' + str(num).zfill(2) + '.png')
+                x_tmp = glob(self.root + '/'  + self.split + '/data/' + \
+                             hashcode + '/frame00' + str(num).zfill(2)+ '.png')
                 x = np.array([imread(f, pilmode='I') for f in x_tmp])
                 x = x.mean(axis=0)
                 x = x.reshape(x.shape + (1, ))
                 x_imgs.append(x.astype(np.uint8))
 
-                mask_tmp = glob(self.root + self.split + '/masks/' + hashcode + '.png')
+                mask_tmp = glob(self.root + '/'  + self.split + '/masks/' + \
+                                hashcode + '.png')
                 mask = np.array([imread(f, pilmode='I') for f in mask_tmp])
                 mask = mask.reshape(mask[0].shape + (1, ))
                 masks_imgs.append(mask.astype(np.int32))
@@ -85,10 +89,11 @@ class Cilia(data.Dataset):
         """
         assert self.split == 'test'
         x_imgs = []
-        hashcodes = sorted(os.listdir(self.root + self.split + '/data/'))
+        hashcodes = sorted(os.listdir(self.root + '/' + self.split + '/data/'))
 
         for hashcode in hashcodes:
-            x_tmp = glob(self.root + self.split + '/data/' + hashcode + '/frame0000.png')
+            x_tmp = glob(self.root + '/' + self.split + '/data/' + hashcode + \
+                         '/frame0000.png')
             x = np.array([imread(f, pilmode='I') for f in x_tmp])
             x = x.mean(axis=0)
             x = x.reshape(x.shape + (1, ))
