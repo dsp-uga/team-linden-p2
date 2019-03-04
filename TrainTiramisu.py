@@ -25,17 +25,24 @@ def main(args):
     # ensure the root directory has expected subdirectories
     if not os.path.exists(args.rootDir):
         raise Exception("ERROR: The dir '"+args.rootDir+"' doesn't exist")
-    if not os.path.exists(args.rootDir+"/data"):
-        raise Exception("ERROR: The dir '"+args.rootDir+"/data' doesn't exist")
-    if not os.path.exists(args.rootDir+"/masks"):
-        raise Exception("ERROR: The dir '"+args.rootDir+"/masks' doesn't " + \
-                        "exist")
-    if not os.path.exists(args.rootDir+"/test.txt"):
-        raise Exception("ERROR: The file '"+args.rootDir+"/test.txt' " + \
+    if not os.path.exists(args.rootDir+"/test/data"):
+        raise Exception("ERROR: The dir '"+args.rootDir+"/test/data' " + \
                         "doesn't exist")
-    if not os.path.exists(args.rootDir+"/train.txt"):
-        raise Exception("ERROR: The dir '"+args.rootDir+"/train.txt' "+ \
-                        "doesn't exist") 
+    if not os.path.exists(args.rootDir+"/test/masks"):
+        raise Exception("ERROR: The dir '"+args.rootDir+"/test/masks' " + \
+                        "doesn't exist")
+    if not os.path.exists(args.rootDir+"/validate/data"):
+        raise Exception("ERROR: The dir '"+args.rootDir+"/validate/data' " + \
+                        "doesn't exist")
+    if not os.path.exists(args.rootDir+"/validate/masks"):
+        raise Exception("ERROR: The dir '"+args.rootDir+"/validate/masks' " + \
+                        "doesn't exist")
+    if not os.path.exists(args.rootDir+"/train/data"):
+        raise Exception("ERROR: The dir '"+args.rootDir+"/train/data' " + \
+                        "doesn't exist")
+    if not os.path.exists(args.rootDir+"/train/masks"):
+        raise Exception("ERROR: The dir '"+args.rootDir+"/train/masks' " + \
+                        "doesn't  exist")
     if not os.path.exists(args.rootDir+"/results"):
         os.mkdir(args.rootDir+"/results") 
     if not os.path.exists(args.rootDir+"/weights"):
