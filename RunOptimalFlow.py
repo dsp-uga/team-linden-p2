@@ -177,7 +177,7 @@ def generateTestResult(threshold, args):
             for i in range(1, 100):
                 preFrame = curFrame
                 curFrame = cv2.imread(os.path.join(direc, 'frame0' + 
-                                                   str(i).zfill(3) + '.png'), 0)
+                                                   str(i).zfill(3) + '.png'),0)
                 
                 flow = cv2.calcOpticalFlowFarneback(preFrame, 
                                                     curFrame, 
