@@ -5,10 +5,24 @@
 * Abolfazl Farahani (a.farahani@uga.edu)
 * Jonathan Myers (submyers@uga.edu)
 * Jiahao Xu (jiahaoxu@uga.edu
-## Mehtods
-### Pixel Variance
+
+## Synopsis
+
+We provide approaches for finding cellular cilia from films using Convolutional Neural Networks and Optical Flow Threshold techniques. Here we apply those techniques to existing data sets to evaluate their performance and provide tools for others to apply and continue expansion. These endeavors come as the second project in the Spring 2019 University of Georgia CSCI 8360 course Data Science Practicum. 
+
+## Outline
+
+Historians credit Antonie Philips van Leeuwenhoek for the September 1675 discovery of cilia [Peter Satir]. While this served as landmark organelle discovery, microscope limitations held back confident analysis for centuries; thereby leaving little incentive for continued research. Even when the 20th century's rapid advances in techniques for cellular analysis, decades passed without provocative research discoveries, though functional understanding grew. Advances in the 1990's found cilia provide intraciliary/intraflagellar transport (ITF), an operation by which material may be shared between cells [KG Kozminski]. Soon thereafter, researchers discovered many instances where cilia ITF function correlated with genes and cellular function, including the Autosomal Recessive Polycystic Kidney Disease (ARPKD) linking hydromorphic allele with dramatic defects [JH Moyer]. As cellular data continues rapid growth, the opportunities to derive correlation patterns between cilia data and symptoms/application show rising potential.
+
+The derivation of patterns by which one could derive potential events, with rational certainty, primarily comes from statistical models. The rapid advances in data science techniques have brought about many opportunities to derive cilia's applicability. Crossing the expanding data science technical abilities with expanding cellular understanding have, in part, lead to the challenge of this project: automatically derive which sections of a video are cilia. With accurate identification of cilia regions, scientists will have more data for integration with other statistical models to broaden the scope of predicting cellular function.
+
+As part of the Spring 2019 University of Georgia CSCI 8360 course, this project's scope is limited to a predefined set of cellular videos along with mask images signifying which areas should be classified as cilia and which should not (please look in the doc directory for a copy of the assignment). To achieve the goals presented in this assignment, that being to accurately predict which regions should be classified as cilia, we implemented Python scripts that use Convolutional Neural Networks and Optical Flow Threshold techniques. The following sections discuss how to use this software. For more information regarding how the software was implemented along with discussions on other ideas tested and potential areas for future progress, please visit our Github wiki page.
+
+## Methods
 
 ### Optical Flow
+
+
 
 ### Convolutional Neural Network (Tiramisu)
 
@@ -32,10 +46,19 @@ Simon Jegou supplies a Github copy of the program, but we found a fairly useful 
 
 ## References
 
+[Peter Satir] Peter Satir, "Cilia: before and after", Satir Cilia  (2017) 6:1
+
+[KG Kozminski] K G Kozminski, P L Beech, J L Rosenbaum, "The Chlamydomonas kinesin-like protein FLA10 is involved in motility associated with the flagellar membrane", J. Cell Bio., 1995; 131:1517-27
+
+[JH Moyer] J H Moyer, M J Lee-Tischler, H Y Kwon, J J Schrick, E D Avner, W E Sweeney, V L Godfrey, N L Cacheiro, J E Wikinson, R P Woychik, "Candidate gene associated with a mutation causing recessive polycystic kidney disease in mice", Science. 1994; 264:1329-33
+
 [Simon Jegou] Simon Jegou, Michal Drozdzal, David Vazquez, Adriana Romero1, and Yoshua Bengio1, "The One Hundred Layers Tiramisu:
 Fully Convolutional DenseNets for Semantic Segmentation", arXiv:1611.09326v3
 
 [Gao Huang] Gao Huang, Zhuang Liu, Laurens van der Maaten, Kilian Q. Weinberger, "Densely Connected Convolutional Networks", arXiv:1608.06993
+
+
+
 
 
 
