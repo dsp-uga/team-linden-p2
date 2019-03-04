@@ -4,11 +4,9 @@ https://github.com/bfortuner/pytorch_tiramisu/blob/master/models/tiramisu.py
 """
 
 from __future__ import division
-import torch
 import math
 import random
 from PIL import Image, ImageOps
-import numpy as np
 import numbers
 import types
 
@@ -43,7 +41,8 @@ class JointScale(object):
 class JointCenterCrop(object):
     """Crops the given PIL.Image at the center to have a region of
     the given size. size can be a tuple (target_height, target_width)
-    or an integer, in which case the target will be of a square shape (size, size)
+    or an integer, in which case the target will be of a square shape 
+    (size, size)
     """
 
     def __init__(self, size):
@@ -65,12 +64,14 @@ class JointPad(object):
 
     def __init__(self, padding, fill=0):
         assert isinstance(padding, numbers.Number)
-        assert isinstance(fill, numbers.Number) or isinstance(fill, str) or isinstance(fill, tuple)
+        assert isinstance(fill, numbers.Number) or isinstance(fill, str) \
+            or isinstance(fill, tuple)
         self.padding = padding
         self.fill = fill
 
     def __call__(self, imgs):
-        return [ImageOps.expand(img, border=self.padding, fill=self.fill) for img in imgs]
+        return [ImageOps.expand(img, border=self.padding, fill=self.fill) \
+                for img in imgs]
 
 
 class JointLambda(object):
@@ -85,9 +86,12 @@ class JointLambda(object):
 
 
 class JointRandomCrop(object):
-    """Crops the given list of PIL.Image at a random location to have a region of
-    the given size. size can be a tuple (target_height, target_width)
-    or an integer, in which case the target will be of a square shape (size, size)
+    """Crops the given list of PIL.Image at a 
+    random location to have a region of
+    the given size. size can be a tuple 
+    (target_height, target_width)
+    or an integer, in which case the target 
+    will be of a square shape (size, size)
     """
 
     def __init__(self, size, padding=0):
@@ -99,7 +103,8 @@ class JointRandomCrop(object):
 
     def __call__(self, imgs):
         if self.padding > 0:
-            imgs = [ImageOps.expand(img, border=self.padding, fill=0) for img in imgs]
+            imgs = [ImageOps.expand(img, border=self.padding, fill=0) \
+                    for img in imgs]
 
         w, h = imgs[0].size
         th, tw = self.size
@@ -112,7 +117,9 @@ class JointRandomCrop(object):
 
 
 class JointRandomHorizontalFlip(object):
-    """Randomly horizontally flips the given list of PIL.Image with a probability of 0.5
+    """
+    Randomly horizontally flips the given 
+    list of PIL.Image with a probability of 0.5
     """
 
     def __call__(self, imgs):
@@ -122,7 +129,8 @@ class JointRandomHorizontalFlip(object):
 
 
 class JointRandomSizedCrop(object):
-    """Random crop the given list of PIL.Image to a random size of (0.08 to 1.0) of the original size
+    """Random crop the given list of PIL.Image 
+    to a random size of (0.08 to 1.0) of the original size
     and and a random aspect ratio of 3/4 to 4/3 of the original aspect ratio
     This is popularly used to train the Inception networks
     size: size of the smaller edge
@@ -152,7 +160,8 @@ class JointRandomSizedCrop(object):
                 imgs = [img.crop((x1, y1, x1 + w, y1 + h)) for img in imgs]
                 assert(imgs[0].size == (w, h))
 
-                return [img.resize((self.size, self.size), self.interpolation) for img in imgs]
+                return [img.resize((self.size, self.size), self.interpolation)\
+                        for img in imgs]
 
         # Fallback
         scale = JointScale(self.size, interpolation=self.interpolation)

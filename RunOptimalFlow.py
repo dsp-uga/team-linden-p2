@@ -269,15 +269,15 @@ def main(args):
             args.testFile = os.path.normpath(args.testFile)
 
     # Check to make sure what will be referenced later exists
-    if not os.path.exits(args.dataDirPath):
+    if not os.path.exists(args.dataDirPath):
         raise Exception("ERROR: '"+args.dataDirPath+"' doesn't exist")
-    if not os.path.exits(args.maskDirPath):
+    if not os.path.exists(args.maskDirPath):
         raise Exception("ERROR: '"+args.maskDirPath+"' doesn't exist")
-    if not os.path.exits(args.trainFile):
+    if not os.path.exists(args.trainFile):
         raise Exception("ERROR: '"+args.trainFile+"' doesn't exist")
-    if not os.path.exits(args.testFile):
+    if not os.path.exists(args.testFile):
         raise Exception("ERROR: '"+args.testFile+"' doesn't exist")
-    if not os.path.exits(args.output):
+    if not os.path.exists(args.output):
         raise Exception("ERROR: '"+args.output+"' doesn't exist")
         
     
@@ -316,7 +316,7 @@ if __name__ == '__main__':
     parser.add_argument('-m', '--maskDirPath', 
                         help='Optional: Path for the masks directory')
     parser.add_argument('-trf', '--trainFile', 
-                        help='Optional: Path for the traing hashcode file, ' + \
+                        help='Optional: Path for the traing hashcode file, '+ \
                         'e.g. train.txt')
     parser.add_argument('-tsf', '--testFile', 
                         help='Optional: Path for the test hashcode file, ' + \
@@ -326,7 +326,7 @@ if __name__ == '__main__':
                         help='Path for the output directory')
     
     parser.add_argument('-opFlow', '--opFlow', action='store_true', 
-                        help='Signify your interest in applying functions ' + \
+                        help='Signify your interest in applying functions '+ \
                         'calcOpticalFlowFarneback and cartToPolar to images')
     parser.add_argument('-pyr_scale', '--pyr_scale', default=0.5, type=float,
                         help='Optocal Flow: pyr_scale argument')
