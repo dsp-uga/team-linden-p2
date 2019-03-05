@@ -71,7 +71,7 @@ def getTrainData(args):
                      variance (0-256), the 2nd column is the label (0, 1, 2)
     """
     trainData = []
-    hashcodeSet = getHashCodeSet(args.hashcodeFilePath)
+    hashcodeSet = getHashCodeSet(args.trainFile)
     dataDirs = glob(args.dataDirPath + '*')
 
     cnt = 1
@@ -155,7 +155,7 @@ def generateTestResult(threshold, args):
     if not os.path.exists(args.output):
         os.makedirs(args.output)
 
-    hashcodeSet = getHashCodeSet(args.testHashcodeFilePath)
+    hashcodeSet = getHashCodeSet(args.testFile)
     dataDirs = glob(args.dataDirPath + '*')
 
     cnt = 1
@@ -267,6 +267,10 @@ def main(args):
             args.testFile = args.rootDir + "/test.txt"
         else:
             args.testFile = os.path.normpath(args.testFile)
+        if args.output == None:
+            args.output = args.rootDir+"/output"
+        else:
+            args.testFile = os.path.normpath(args.output)
 
     # Check to make sure what will be referenced later exists
     if not os.path.exists(args.dataDirPath):
@@ -322,7 +326,7 @@ if __name__ == '__main__':
                         help='Optional: Path for the test hashcode file, ' + \
                         'e.g. test.txt')
     
-    parser.add_argument('-o', '--output', default="output", required=True,
+    parser.add_argument('-o', '--output', required=True,
                         help='Path for the output directory')
     
     parser.add_argument('-opFlow', '--opFlow', action='store_true', 
