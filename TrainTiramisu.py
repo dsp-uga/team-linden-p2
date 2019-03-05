@@ -116,7 +116,7 @@ def main(args):
 
     ## Write final summary to output
     output_accu = np.zeros((len(train_acc), 3))
-    output_accu[:, 0] = np.arange(1, 201)
+    output_accu[:, 0] = np.arange(1, len(train_acc)+1)
     output_accu[:, 1] = np.array(train_acc)
     output_accu[:, 2] = np.array(val_acc)
     np.savetxt(args.rootDir + "/" + 'adabound_accuracy.txt', output_accu)
