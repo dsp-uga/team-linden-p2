@@ -49,7 +49,7 @@ Once you have a source directory, with files and subdirectories conforming with 
 Execution of the BuildTiramisuData.py will take the Quinn format data and generate data ready for use in the Tiramisu CNN with the following command:
 
 ```
-$ python BuildTiramisuData -r ~/cilia/SetOne -v 65 -s 1 -o ~/cilia/tiramisuData
+$ python BuildTiramisuData -r ~/cilia/SetOne -v 40 -s 1 -o ~/cilia/tiramisuData
 ```
 
 See more details about what the BuildTiramisuData script does in the Utilities section below. At this point you have two directories with data conforming to formats expected by Tiramisu CNN and Optical Flow, so you're ready for the next section.
