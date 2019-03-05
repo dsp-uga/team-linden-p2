@@ -26,7 +26,9 @@ Being our course's second project assignment, it carries expectations regarding 
 
 Dr. Shannon Quinn provide us with a data directory consisting of the following:
 
-((( FILL IN WITH PICTURE… )))
+<p align="center">
+    <img src="img/quinnDataOrg.png">
+</p>
 
 Our Optical Flow software expects users will give it reference to a data directory that holds the files and subdirectories like the one above. If this is your first time working with our software, we would advise downloading a copy of the data we used to evaluate this model by executing the following command (bear in mind this process takes some time to full download all data):
 
@@ -40,7 +42,9 @@ In general, FormatImageData.py allows you to take image data (from a base direct
 
 Once you have a source directory, with files and subdirectories conforming with Quinn format expectations, you could generate another source directory having format that will conform with the CNN expectations using the utility program BuildTiramisuData.py. Tiramisu CNN expects something different because, being a Neural Network, you want to ensure the model does not over fit target training data by defining a validation set (the following image illustrates structural expectations):
 
-((( Import an image!!! )))
+<p align="center">
+    <img src="img/tiramisuDataOrg.png">
+</p>
 
 Execution of the BuildTiramisuData.py will take the Quinn format data and generate data ready for use in the Tiramisu CNN with the following command:
 
