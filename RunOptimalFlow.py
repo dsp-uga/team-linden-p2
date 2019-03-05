@@ -72,8 +72,8 @@ def getTrainData(args):
     """
     trainData = []
     hashcodeSet = getHashCodeSet(args.trainFile)
-    dataDirs = glob(args.dataDirPath + '*')
-
+    dataDirs = glob(args.dataDirPath + '/*')
+    print(dataDirs)
     cnt = 1
     for direc in dataDirs:
         hashcode = direc.split('/')[-1]
@@ -141,6 +141,7 @@ def getTrainData(args):
             for i in range(row):
                 for j in range(col):
                     trainData.append([data1[i][j], mask[i][j]])
+    print(trainData)
     return trainData
 
 
@@ -245,6 +246,7 @@ def main(args):
     # Define argument values based on the root directory if needed
     if args.rootDir != None :
         args.rootDir = os.path.normpath(args.rootDir)
+        #print(os.path.join(args.rootDir + args.output))
         if not os.path.exists(args.rootDir):
             raise Exception("ERROR: The root directory supplied doesn't exist")
             
@@ -267,11 +269,11 @@ def main(args):
             args.testFile = args.rootDir + "/test.txt"
         else:
             args.testFile = os.path.normpath(args.testFile)
+
         if args.output == None:
             args.output = args.rootDir+"/output"
         else:
             args.testFile = os.path.normpath(args.output)
-
     # Check to make sure what will be referenced later exists
     if not os.path.exists(args.dataDirPath):
         raise Exception("ERROR: '"+args.dataDirPath+"' doesn't exist")
@@ -282,8 +284,7 @@ def main(args):
     if not os.path.exists(args.testFile):
         raise Exception("ERROR: '"+args.testFile+"' doesn't exist")
     if not os.path.exists(args.output):
-        raise Exception("ERROR: '"+args.output+"' doesn't exist")
-        
+        raise Exception("ERROR: '"+args.output+"' doesn't exist")  
     
     if args.train:
         trainData = getTrainData(args)
@@ -313,7 +314,7 @@ if __name__ == '__main__':
     parser.add_argument('-r','--rootDir',
                         help='The base directory storing files and ' + \
                         'directories conforming with organization ' + \
-                        'expectations, please visit out GitHub website')
+                        'expectations, please visit our GitHub website')
 
     parser.add_argument('-d', '--dataDirPath', 
                         help='Optional: Path for the images data directory')
@@ -326,7 +327,7 @@ if __name__ == '__main__':
                         help='Optional: Path for the test hashcode file, ' + \
                         'e.g. test.txt')
     
-    parser.add_argument('-o', '--output', required=True,
+    parser.add_argument('-o', '--output', required=False,
                         help='Path for the output directory')
     
     parser.add_argument('-opFlow', '--opFlow', action='store_true', 
