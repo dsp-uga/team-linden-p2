@@ -25,7 +25,7 @@ def save_weights(model, epoch, loss, err):
             'error': err,
             'state_dict': model.state_dict()
             }, weights_fpath)
-    shutil.copyfile(weights_fpath, WEIGHTS_PATH+'latest.th')
+    shutil.copyfile(weights_fpath, str(WEIGHTS_PATH)+'latest.th')
 
 def load_weights(model, fpath):
     print("loading weights '{}'".format(fpath))
