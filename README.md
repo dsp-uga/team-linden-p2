@@ -53,9 +53,36 @@ See more details about what the BuildTiramisuData script does in the Utilities s
 ## Methods
 
 ### Optical Flow
+This approach focuses deriving the motion of objects between adjacent frames in a video. Start by viewing a pixel at two points in time (i.e. on two frames) and formalize the pixels change with an equation <img src="https://latex.codecogs.com/svg.latex?I"> that compensates for the motion over time:
 
+<p align="center">
+<img src="https://latex.codecogs.com/svg.latex?I(x,y,t)=I(x+\partial%20x,y+\partial%20y,t+\partial%20t)">
+</p>
 
+where <img src="https://latex.codecogs.com/svg.latex?\partial%20x,%20\partial%20y,%20\text{and}%20\partial%20t"> signify the changes to <img src="https://latex.codecogs.com/svg.latex?x"> and <img src="https://latex.codecogs.com/svg.latex?y"> over the time range <img src="https://latex.codecogs.com/svg.latex?t">. We approximate the equation above using a basic Taylor series of derivities over the two pixel dimensions relative to time:
 
+<p align="center">
+<img src="https://latex.codecogs.com/svg.latex?f_x%20u+f_y%20v+f_t%20=0">
+</p>
+
+where
+
+<p align="center">
+<img src="https://latex.codecogs.com/svg.latex?f_x%20=\frac{\partial%20f}{\partial%20x},%20f_y%20=\frac{\partial%20f}{\partial%20y}">
+</p>
+
+<p align="center">
+<img src="https://latex.codecogs.com/svg.latex?u=\frac{dx}{dt},%20v%20=\frac{dy}{dt}">
+</p>
+
+At this point, the Lucas-Kanade method [B Lucas] (a form of regression) equations serve as a basis for calculating the <img src="https://latex.codecogs.com/svg.latex?u"> and <img src="https://latex.codecogs.com/svg.latex?v"> values
+
+<p align="center">
+<img src="https://latex.codecogs.com/svg.latex?\begin{bmatrix}u\\v\end{bmatrix}=\begin{bmatrix}\sum_i%20f_{x_i}^{2}&\sum_i%20f_{x_i}f_{y_i}\\\sum_i%20f_{x_i}f_{y_i}&\sum_i%20f_{y_i}^2\end{bmatrix}^{\!\!-1}\begin{bmatrix}-\sum_i%20f_{x_i}f_{t_i}\\-\sum_i%20f_{y_i}f_{t_i}\end{bmatrix}">
+</p>
+
+Gunnar Farneback [Gunnar Farneback] expanded the Lucas-Kanade method by limiting the score to a series of two frame values to derive a two dimensional array with optical values for u and v. We looked to the OpenCV enactment of this technique using the [calcOpticalFlowFarneback]( https://docs.opencv.org/3.4/dc/d6b/group__video__track.html#ga5d10ebbd59fe09c5f650289ec0ece5af) function. Visit the website [OpenCV Optical Flow]( https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_video/py_lucas_kanade/py_lucas_kanade.html) website for further details and examples of use.
+Our enactment of this approach occurs in the 
 ### Convolutional Neural Network (Tiramisu)
 
 Our neural network codes are originate from https://github.com/bfortuner/pytorch_tiramisu.
@@ -93,12 +120,9 @@ Fully Convolutional DenseNets for Semantic Segmentation", arXiv:1611.09326v3
 
 [Gao Huang] Gao Huang, Zhuang Liu, Laurens van der Maaten, Kilian Q. Weinberger, "Densely Connected Convolutional Networks", arXiv:1608.06993
 
+[B Lucas] B Lucas, T Kanade, "An Iterative Image Registration Technique with Applications to Stereo Vision.", In: Proc. Darpa IU Workshop. (1981) 121–130
 
-
-
-
-
-
+[Gunnar Farneback] Gunnar Farneback, "Two-Frame Motion Estimation Based on Polynomial Expansion", SCIA 2003: Image Analysis pp 363-370
 
 
 
