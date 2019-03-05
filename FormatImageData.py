@@ -91,9 +91,17 @@ def main(args):
             os.mkdir(image_path)
         os.system("gsutil cp -r " + args.sourceAddr + " " + image_path )
         # Now untar all tar files there
+        os.system('mv ' + args.sourceAddr + " " + image_path +"/project2/* "+ \
+                  args.sourceAddr + " " + image_path)
+        os.system('rmdir ' + args.sourceAddr + " " + image_path +"/project2")
         for file in os.listdir(image_path + "/data/"):
             if file.endswith(".tar"):
-                os.system('tar xvf ' + file)
+                output_dir = file[:-4]
+                os.system('mkdir ' + image_path + "/data/" + output_dir)
+                print('tar xvf ' + image_path + "/data/" + file + " -C " +\
+                          image_path + "/data/" + output_dir)
+                os.system('tar xvf ' + image_path + "/data/" + file + " -C " +\
+                          image_path + "/data/" + output_dir)
     else:
         # Check to see if expected directories exist
         if not os.path.exists(image_path) \
