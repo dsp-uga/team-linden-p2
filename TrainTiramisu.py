@@ -119,8 +119,11 @@ def main(args):
     output_accu[:, 0] = np.arange(1, len(train_acc)+1)
     output_accu[:, 1] = np.array(train_acc)
     output_accu[:, 2] = np.array(val_acc)
-    np.savetxt(args.rootDir + "/" + 'adabound_accuracy.txt', output_accu)
-        
+    if args.adaBound:
+        np.savetxt(args.rootDir + "/" + 'adabound_accuracy.txt', output_accu)
+    if args.torchAdam
+        np.savetxt(args.rootDir + "/" + 'torchAdam_accuracy.txt', output_accu)
+
     # Done!
 
 if __name__ == '__main__':
