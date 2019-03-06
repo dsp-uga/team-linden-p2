@@ -28,9 +28,6 @@ def main(args):
     if not os.path.exists(args.rootDir+"/test/data"):
         raise Exception("ERROR: The dir '"+args.rootDir+"/test/data' " + \
                         "doesn't exist")
-    if not os.path.exists(args.rootDir+"/test/masks"):
-        raise Exception("ERROR: The dir '"+args.rootDir+"/test/masks' " + \
-                        "doesn't exist")
     if not os.path.exists(args.rootDir+"/results"):
         os.mkdir(args.rootDir+"/results") 
     if not os.path.exists(args.rootDir+"/weights"):
@@ -119,11 +116,12 @@ def main(args):
     output_accu[:, 0] = np.arange(1, len(train_acc)+1)
     output_accu[:, 1] = np.array(train_acc)
     output_accu[:, 2] = np.array(val_acc)
-    if args.adaBound:
-        np.savetxt(args.rootDir + "/" + 'adabound_accuracy.txt', output_accu)
-    if args.torchAdam
-        np.savetxt(args.rootDir + "/" + 'torchAdam_accuracy.txt', output_accu)
+    np.savetxt(args.rootDir + "/" + 'accuracy.txt', output_accu)
 
+    print('----Trainig done successfully----')
+    print('Generated weights have been saved in ',args.rootDir+"/weights/")
+    print('accuracy.txt has been saved in ',args.rootDir)
+        
     # Done!
 
 if __name__ == '__main__':
