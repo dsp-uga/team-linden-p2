@@ -2,12 +2,13 @@ import cv2
 import os
 import argparse
 import shutil
+import glob
 from vidstab import VidStab
 
 def image_to_video(image_path,out_video_path):
-    print(image_path + " and " + out_video_path)
     for image_folder in image_path:
         head, tail = os.path.split(image_folder)
+        print(head + " and " + tail)
         images = [img for img in os.listdir(image_folder) \
                   if img.endswith(".png")]
         frame = cv2.imread(os.path.join(image_folder, images[0]))
@@ -97,21 +98,13 @@ def main(args):
         for file in os.listdir(image_path + "/data/"):
             if file.endswith(".tar"):
                 output_dir = file[:-4]
-                print('mkdir ' + image_path + "/data/" + output_dir)
                 os.system('mkdir ' + image_path + "/data/" + output_dir)
-                print('tar xvf ' + image_path + "/data/" + file + " -C " +\
-                          image_path + "/data/" + output_dir)
                 os.system('tar xvf ' + image_path + "/data/" + file + " -C " +\
-                          image_path + "/data")
-                print('mv ' + image_path + "/data/data/" + output_dir + " " + \
                           image_path + "/data")
                 os.system('mv ' + image_path + "/data/data/"+output_dir+" " + \
                           image_path + "/data")
-                print('rmdir ' + image_path + "/data/data/")
                 os.system('rmdir ' + image_path + "/data/data/")
-                print('rm ' + image_path + "/data/" + file)
                 os.system('rm ' + image_path + "/data/" + file)
-                raise Exception("Done\n")
     else:
         # Check to see if expected directories exist
         if not os.path.exists(image_path) \
@@ -127,7 +120,7 @@ def main(args):
         os.mkdir(output_path + "/data")
     if not os.path.exists(output_path + "/masks"):
         os.mkdir(output_path + "/masks")
-        
+    os.system('cp ' + image_path + "/masks/*.png " + output_path + "/masks")
 
     # make a temp directory for videos
     if not os.path.exists(output_path + "/.video"):
@@ -136,23 +129,22 @@ def main(args):
         os.mkdir(output_path + "/.video_stab")
     
     # Make videos from images for later use
-    for direc in os.listdir(image_path + "/data"):
-        if not os.path.exists(output_path + "/.video/" + direc):
-            os.mkdir(output_path + "/.video/" + direc)
-        image_to_video(image_path + "/data/" + direc, output_path + \
-                       "/.video/" + direc)
+    image_to_video(glob.glob(image_path + "/data/*"), output_path + \
+                   "/.video")
 
     # apply video stabalizer if asked for
     if args.vs:
-        video_stabilizer(image_path + "/.video", output_path + "/.video_stab")
-        processing_frame_from_video(output_path + "/.video_stab", 
-                                    output_path, args)
+        video_stabilizer(glob.glob(output_path + "/.video/*"), 
+                         output_path + "/.video_stab")
+        processing_frame_from_video(glob.glob(output_path + "/.video_stab/*"), 
+                                    output_path + '/data', args)
     else:
-        processing_frame_from_video(output_path + "/.video", output_path, args)
+        processing_frame_from_video(glob.glob(output_path + "/.video/*"), 
+                                    output_path + '/data', args)
 
     # Remove temp directories
-    shutil.rmtree(output_path + "/.video")
-    shutil.rmtree(output_path + "/.video_stab")
+#    shutil.rmtree(output_path + "/.video")
+#    shutil.rmtree(output_path + "/.video_stab")
     
 
 # Parse arguments and call main    
