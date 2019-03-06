@@ -28,7 +28,7 @@ We provide Python scripts for predicting which regions in a series of cellular v
 You might not have all the Python packages expected by our scripts. If you see any errors from Python stating you don't have an expected package, for instance you don't have "torch", use pip to install the package in question; here's an example:
 
 ```
-pip install torch
+$ pip install torch
 ```
 
 Our two main approaches expect different data structure in the source directory. Optical Flow expects a data structure that conforms with the data provided by Dr. Quinn for this assignment; the following image gives a brief summary of the expected directories and some of their content:
