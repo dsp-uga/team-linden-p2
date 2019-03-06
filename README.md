@@ -64,7 +64,7 @@ Once you've executes the commands listed above, or confirmed you have a director
 While the script FormatImageData.py can download example data for you, as noted in the previous section, it can also format the images which define the cellular videos. We highly recommend you format your images using this script before using the Optical Flow script or preparing your data for Tiramisu CNN with BuildTiramisuData.py. Following the example actions shown above, we recommend executing the following:
 
 ```
-$ python FormatImageData.py -r ~/cilia/SetOne -o ~/cilia/OpticalFlowData -clahe -bf -gb -vs
+$ python FormatImageData.py -s ~/cilia/SetOne -o ~/cilia/OpticalFlowData -clahe -bf -gb -vs
 ```
 
 The arguments -clahe, -bf, -gb, and -vs signify the application different image formatting approaches using default values (read our wiki page for more details and references)
