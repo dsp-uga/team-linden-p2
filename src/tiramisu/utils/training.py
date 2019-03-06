@@ -15,8 +15,8 @@ import torch.nn.functional as F
 RESULTS_PATH = '.results/'
 WEIGHTS_PATH = '.weights/'
 
-
 def save_weights(model, epoch, loss, err):
+
     weights_fname = 'weights-%d-%.3f-%.3f.pth' % (epoch, loss, err)
     weights_fpath = os.path.join(WEIGHTS_PATH, weights_fname)
     torch.save({
@@ -25,6 +25,7 @@ def save_weights(model, epoch, loss, err):
             'error': err,
             'state_dict': model.state_dict()
             }, weights_fpath)
+
     shutil.copyfile(weights_fpath, str(WEIGHTS_PATH)+'latest.th')
 
 def load_weights(model, fpath):
@@ -57,11 +58,8 @@ def train(model, trn_loader, optimizer, criterion, epoch):
     trn_loss = 0
     trn_error = 0
     device = torch.device("cuda" if use_cuda else "cpu")
-
     for trn_data in trn_loader:
         inputs, targets = trn_data[0].to(device), trn_data[1].to(device)
-        # inputs = Variable(data[0].cuda())
-        # targets = Variable(data[1].cuda())
 
         optimizer.zero_grad()
         output = model(inputs)
@@ -118,11 +116,10 @@ def predict(model, input_loader, n_batches=1):
         predictions.append([input,target,pred])
     return predictions
 
-def get_test_pred(model, img, useGPU=True):
-    if useGPU:
-        data = Variable(img.cuda(), volatile = True)
-    else:
-        data = Variable(img, volatile = True)
+def get_test_pred(model, img):
+    use_cuda = True
+    device = torch.device("cuda" if use_cuda else "cpu")
+    data = Variable(img[0].to(device), volatile = True)
     output = model(data)
     pred = get_predictions(output)
     return pred
