@@ -96,7 +96,7 @@ $ python TrainTiramisu.py -ab -r ~/cilia/tiramisuData -bs 1 -rc 96 -lr 1e-4 -flr
 You will see standard output explaining how well the different Tiramisu CNN perform on the verification set. Once the process completes, you will see the file adabound_accuracy.txt (because you selected the "-ab" option) in the ~/cilia/tiramisuData directory. The file states which model performed best. You can then generate predictions on the test set with the following command:
 
 ```
-$ python RestTiramisu.py r ~/cilia/tiramisuData -tm ~/cilia/tiramisuData/weights/ -o ~/cilia/tiramisuData/results
+$ python TestTiramisu.py r ~/cilia/tiramisuData -tm weights-940.pth
 ```
 
 The script will fill the ~/cilia/tiramisuData/results directory with mask prediction png files for each member of the test set.
