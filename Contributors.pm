@@ -17,11 +17,7 @@
 [Jiahao Xu](https://github.com/jiahaoxu) <br />
 1. Found initial idea
 2. Lead the team towards initial idea
-3. Tracked sources and citations
-4. Adapted code and contributed greatly in general
-5. Provide oversight and advice as new areas were explored
-
- 
- 
-
-
+3. Focused work on Tiramisu (As Abolfazl's machine has GPU, we worked on that computer together. And most of our work were committed by his computer)
+4. Tracked sources and citations
+5. Adapted code and contributed greatly in general
+6. Provide oversight and advice as new areas were explored
