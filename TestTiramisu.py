@@ -19,24 +19,19 @@ import argparse
 
 def main(args):
 
-    args.rootDir = os.path.normpath(args.rootDir)
-    args.outputDir = os.path.normpath(args.outputDir)
-    
+    args.rootDir = os.path.normpath(args.rootDir)    
     # ensure the root directory has expected subdirectories
     if not os.path.exists(args.rootDir):
         raise Exception("ERROR: The dir '"+args.rootDir+"' doesn't exist")
+        
     if not os.path.exists(args.rootDir+"/test/data"):
         raise Exception("ERROR: The dir '"+args.rootDir+"/test/data' " + \
                         "doesn't exist")
-    if not os.path.exists(args.rootDir+"/test/masks"):
-        raise Exception("ERROR: The dir '"+args.rootDir+"/test/masks' " + \
-                        "doesn't exist")
-    if not os.path.exists(args.targModel):
-        raise Exception("ERROR: The target model file '"+args.targModel+"' "+ \
+        
+    if not os.path.exists(args.rootDir+'/weights/'+args.targModel):
+        raise Exception("ERROR: The target model file '"+args.rootDir+'/weights/'+args.targModel+"' "+ \
                         "doesn't exist") 
-    if not os.path.exists(args.outputDir):
-        raise Exception("ERROR: The result path '"+args.outputDir+"' does "+ \
-                        "not exist")
+
     if not os.path.exists(args.rootDir+"/results"):
         os.mkdir(args.rootDir+"/results") 
     if not os.path.exists(args.rootDir+"/weights"):
@@ -46,19 +41,21 @@ def main(args):
     training.WEIGHTS_PATH = Path(args.rootDir+"/weights/")
     
     test_cilia = cilia.Cilia(args.rootDir, 'test')
-    test_loader = torch.utils.data.DataLoader(test_cilia, batch_size=1, \
-                                              shuffle=False)
-    
+    test_loader =  data.DataLoader(test_cilia, batch_size=1, \
+                                              shuffle=False)    
     ## Load the target model
     model = tiramisu.FCDenseNet103(n_classes=3, in_channels=1).cuda()
-    model.load_state_dict(torch.load(args.targModel)['state_dict'])
+    model.load_state_dict(torch.load(args.rootDir+'/weights/'+args.targModel)['state_dict'])
 
     test_dir = sorted(os.listdir(args.rootDir + '/test/data/'))
     for i, img in enumerate(test_loader):
         pred = training.get_test_pred(model, img)
         pred_img = pred[0, :, :]
-        imwrite(os.path.join(args.outputDir, test_dir[i] + '.png'), \
+        imwrite(os.path.join(args.rootDir+"/results", test_dir[i] + '.png'), \
                 pred_img.numpy().astype(np.uint8))
+        
+    print('----Testing done successfully----')
+    print('Masks have been created in ', args.rootDir+"/results")
 
 if __name__ == '__main__':
     
@@ -68,14 +65,12 @@ if __name__ == '__main__':
             'for more information regarding data organization ' + \
             'expectations and examples on how to execute our scripts.')
     
-    
     parser.add_argument('-r','--rootDir', required=True,
                         help='The base directory storing files and ' + \
                         'directories conforming with organization ' + \
                         'expectations, please visit out GitHub website')
+    
     parser.add_argument('-tm', '--targModel', required=True,
-                        help='A model file to define the CNN weights')
-    parser.add_argument('-o', '--outputDir', required=True,
                         help='A model file to define the CNN weights')
     
     args = parser.parse_args()
