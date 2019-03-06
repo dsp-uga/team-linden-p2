@@ -1,3 +1,10 @@
+"""
+This code is taken from 
+https://github.com/clcarwin/focal_loss_pytorch/blob/master/focalloss.py
+"""
+
+import torch
+import torch.nn as nn
 import torch.nn.functional as F
 from torch.autograd import Variable
 
@@ -6,7 +13,7 @@ class FocalLoss(nn.Module):
         super(FocalLoss, self).__init__()
         self.gamma = gamma
         self.alpha = alpha
-        if isinstance(alpha,(float,int)): self.alpha = torch.Tensor([alpha,1-alpha])
+        if isinstance(alpha,(float,int,long)): self.alpha = torch.Tensor([alpha,1-alpha])
         if isinstance(alpha,list): self.alpha = torch.Tensor(alpha)
         self.size_average = size_average
 

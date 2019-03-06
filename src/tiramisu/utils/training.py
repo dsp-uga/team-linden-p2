@@ -1,3 +1,10 @@
+"""
+This code is taken from 
+https://github.com/bfortuner/pytorch_tiramisu/blob/master/utils/training.py
+
+We added a test image prediction function, get_test_results
+"""
+
 import os
 import sys
 import math
