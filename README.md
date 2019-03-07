@@ -4,7 +4,7 @@
 ## Member (Ordered by last name alphabetically)
 * Abolfazl Farahani (a.farahani@uga.edu)
 * Jonathan Myers (submyers@uga.edu)
-* Jiahao Xu (jiahaoxu@uga.edu
+* Jiahao Xu (jiahaoxu@uga.edu)
 
 ## Synopsis
 

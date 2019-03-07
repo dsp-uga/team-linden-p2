@@ -19,5 +19,5 @@
 2. Lead the team towards initial idea
 3. Focused work on Tiramisu (As Abolfazl's machine has GPU, we worked on that computer together. And most of our work were committed by his computer)
 4. Tracked sources and citations
-5. Implemented the PixelVariance code and the Optical Flow code
+5. Implemented the Pixe lVariance code and the Optical Flow code
 6. Provide oversight and advice as new areas were explored
